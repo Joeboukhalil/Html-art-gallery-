@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Masterpiece</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      display: block;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+  <button onclick="generateMasterpiece()">Generate Masterpiece</button>
+  <script>
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const imageFunctions = [
+      drawAbstractComposition,
+      drawSmileyFace,
+      drawUniquePattern
+    ];
+
+    let currentImageIndex = 0;
+
+    function generateMasterpiece() {
+      const currentFunction = imageFunctions[currentImageIndex];
+      currentFunction();
+      
+      currentImageIndex = (currentImageIndex + 1) % imageFunctions.length;
+    }
+
+    function drawAbstractComposition() {
+      // Your existing drawAbstractComposition code...
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 500; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 20 + 5;
+        const color = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255}, 0.8)`;
+
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+
+    function drawSmileyFace() {
+      // Your existing drawSmileyFace code...
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#3498db"; // Blue background
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ecf0f1"; // Light gray
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, 150, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = "#2c3e50"; // Dark gray
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2 - 40, canvas.height / 2 - 30, 15, 0, 2 * Math.PI);
+      ctx.arc(canvas.width / 2 + 40, canvas.height / 2 - 30, 15, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.strokeStyle = "#c0392b"; // Dark red
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2 + 30, 80, 0, Math.PI);
+      ctx.stroke();
+    }
+
+    function drawUniquePattern() {
+      // Your existing drawUniquePattern code...
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const colors = ["#3498db", "#e74c3c", "#2ecc71", "#f39c12", "#8e44ad"];
+      const points = [];
+
+      // Generate random points
+      for (let i = 0; i < 50; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        points.push({ x, y });
+      }
+
+      // Connect the points with lines
+      for (let i = 0; i < points.length; i++) {
+        const startPoint = points[i];
+        const endPoint = points[(i + 1) % points.length];
+
+        ctx.beginPath();
+        ctx.moveTo(startPoint.x, startPoint.y);
+        ctx.lineTo(endPoint.x, endPoint.y);
+        ctx.strokeStyle = colors[i % colors.length];
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+    }
+  </script>
+</body>
+</html>
